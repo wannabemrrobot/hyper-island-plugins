@@ -1,0 +1,295 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "properties" : {
+    "$schema" : {
+      "type" : "string"
+    },
+    "author" : {
+      "properties" : {
+        "github" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      },
+      "required" : [
+        "name"
+      ],
+      "type" : "object"
+    },
+    "contributes" : {
+      "additionalProperties" : false,
+      "properties" : {
+        "menuItems" : {
+          "items" : {
+            "additionalProperties" : false,
+            "properties" : {
+              "id" : {
+                "type" : "string"
+              },
+              "title" : {
+                "maxLength" : 40,
+                "minLength" : 1,
+                "type" : "string"
+              },
+              "type" : {
+                "enum" : [
+                  "action",
+                  "toggle"
+                ]
+              }
+            },
+            "required" : [
+              "id",
+              "title"
+            ],
+            "type" : "object"
+          },
+          "maxItems" : 3,
+          "type" : "array"
+        },
+        "railActions" : {
+          "items" : {
+            "additionalProperties" : false,
+            "properties" : {
+              "icon" : {
+                "description" : "One of the rail's reviewed icons",
+                "enum" : [
+                  "glass-water"
+                ]
+              },
+              "id" : {
+                "type" : "string"
+              },
+              "nudge" : {
+                "maximum" : 1.5,
+                "minimum" : -1.5,
+                "multipleOf" : 0.5,
+                "type" : "number"
+              },
+              "panel" : {
+                "additionalProperties" : false,
+                "properties" : {
+                  "choices" : {
+                    "items" : {
+                      "additionalProperties" : false,
+                      "properties" : {
+                        "icon" : {
+                          "description" : "A Lucide icon name (lucide.dev)",
+                          "type" : "string"
+                        },
+                        "id" : {
+                          "type" : "string"
+                        },
+                        "title" : {
+                          "maxLength" : 12,
+                          "type" : "string"
+                        }
+                      },
+                      "required" : [
+                        "id"
+                      ],
+                      "type" : "object"
+                    },
+                    "maxItems" : 10,
+                    "minItems" : 1,
+                    "type" : "array"
+                  },
+                  "title" : {
+                    "maxLength" : 24,
+                    "minLength" : 1,
+                    "type" : "string"
+                  }
+                },
+                "required" : [
+                  "title",
+                  "choices"
+                ],
+                "type" : "object"
+              },
+              "tooltip" : {
+                "maxLength" : 40,
+                "minLength" : 1,
+                "type" : "string"
+              }
+            },
+            "required" : [
+              "id",
+              "icon",
+              "tooltip"
+            ],
+            "type" : "object"
+          },
+          "type" : "array"
+        },
+        "settings" : {
+          "items" : {
+            "additionalProperties" : false,
+            "properties" : {
+              "default" : {
+                "type" : [
+                  "boolean",
+                  "number",
+                  "string"
+                ]
+              },
+              "key" : {
+                "type" : "string"
+              },
+              "max" : {
+                "type" : "number"
+              },
+              "min" : {
+                "type" : "number"
+              },
+              "options" : {
+                "items" : {
+                  "properties" : {
+                    "title" : {
+                      "type" : "string"
+                    },
+                    "value" : {
+                      "type" : "string"
+                    }
+                  },
+                  "required" : [
+                    "value",
+                    "title"
+                  ],
+                  "type" : "object"
+                },
+                "type" : "array"
+              },
+              "step" : {
+                "type" : "number"
+              },
+              "title" : {
+                "minLength" : 1,
+                "type" : "string"
+              },
+              "type" : {
+                "enum" : [
+                  "toggle",
+                  "number",
+                  "slider",
+                  "choice",
+                  "text"
+                ]
+              }
+            },
+            "required" : [
+              "key",
+              "type",
+              "title"
+            ],
+            "type" : "object"
+          },
+          "type" : "array"
+        },
+        "widgets" : {
+          "items" : {
+            "additionalProperties" : false,
+            "properties" : {
+              "icon" : {
+                "description" : "A Lucide icon name (lucide.dev)",
+                "type" : "string"
+              },
+              "id" : {
+                "type" : "string"
+              },
+              "minWidth" : {
+                "description" : "Older form; use sizes",
+                "type" : "number"
+              },
+              "refresh" : {
+                "description" : "How often it redraws on screen: 60s, 5m, 1h",
+                "pattern" : "^[0-9.]+[smh]$",
+                "type" : "string"
+              },
+              "sizes" : {
+                "items" : {
+                  "description" : "rows × columns on the grid, like 2x4 (docs/PLUGIN_SIZES.md)",
+                  "pattern" : "^[12][x×]([1-9]|1[0-8])$",
+                  "type" : "string"
+                },
+                "minItems" : 1,
+                "type" : "array"
+              },
+              "title" : {
+                "maxLength" : 30,
+                "minLength" : 1,
+                "type" : "string"
+              }
+            },
+            "required" : [
+              "id",
+              "title"
+            ],
+            "type" : "object"
+          },
+          "type" : "array"
+        }
+      },
+      "type" : "object"
+    },
+    "description" : {
+      "description" : "A sentence for the island's plugin gallery",
+      "maxLength" : 140,
+      "type" : "string"
+    },
+    "icon" : {
+      "description" : "A Lucide icon name (lucide.dev)",
+      "type" : "string"
+    },
+    "id" : {
+      "description" : "Reverse-DNS in lower case, like io.github.alice.streak",
+      "pattern" : "^[a-z0-9]+(\\.[a-z0-9][a-z0-9-]*)+$",
+      "type" : "string"
+    },
+    "main" : {
+      "description" : "Its script, inside the plugin's folder",
+      "type" : "string"
+    },
+    "minAppVersion" : {
+      "type" : "string"
+    },
+    "name" : {
+      "maxLength" : 40,
+      "minLength" : 1,
+      "type" : "string"
+    },
+    "permissions" : {
+      "items" : {
+        "enum" : [
+          "commands:glass",
+          "commands:lyrics",
+          "events:islandClose",
+          "events:islandOpen",
+          "events:lock",
+          "events:nowPlaying",
+          "events:trackChange",
+          "events:unlock",
+          "events:wake",
+          "liveActivity",
+          "schedule",
+          "storage"
+        ]
+      },
+      "type" : "array",
+      "uniqueItems" : true
+    },
+    "version" : {
+      "pattern" : "^\\d+\\.\\d+\\.\\d+$",
+      "type" : "string"
+    }
+  },
+  "required" : [
+    "id",
+    "name",
+    "version",
+    "main"
+  ],
+  "title" : "Hyper Island plugin manifest",
+  "type" : "object"
+}

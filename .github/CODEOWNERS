@@ -1,0 +1,4 @@
+# Changes to the tools and the workflows need the owner's review (with branch protection on).
+/tools/ @wannabemrrobot
+/.github/ @wannabemrrobot
+/sdk/ @wannabemrrobot
