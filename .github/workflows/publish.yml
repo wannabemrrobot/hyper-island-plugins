@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths: ["plugins/**"]
+  workflow_dispatch:          # "Run workflow" in the Actions tab — e.g. once the signing key is added
 
 permissions:
   contents: write
