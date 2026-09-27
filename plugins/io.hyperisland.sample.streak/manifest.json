@@ -1,0 +1,80 @@
+{
+  "$schema": "./manifest.schema.json",
+  "id": "io.hyperisland.sample.streak",
+  "name": "Hydration Streak",
+  "version": "0.3.0",
+  "author": {
+    "name": "Hyper Island"
+  },
+  "description": "Today's glasses of water at a glance, with a panel to log them and an optional nudge.",
+  "minAppVersion": "1.0",
+  "main": "main.js",
+  "icon": "glass-water",
+  "contributes": {
+    "widgets": [
+      {
+        "id": "streak",
+        "title": "Streak",
+        "icon": "glass-water",
+        "refresh": "60s",
+        "sizes": [
+          "2x3",
+          "1x3"
+        ]
+      }
+    ],
+    "railActions": [
+      {
+        "id": "log",
+        "icon": "glass-water",
+        "tooltip": "Log water",
+        "panel": {
+          "title": "Glasses",
+          "choices": [
+            {
+              "id": "1",
+              "title": "+1"
+            },
+            {
+              "id": "2",
+              "title": "+2"
+            },
+            {
+              "id": "undo",
+              "icon": "undo-2"
+            }
+          ]
+        }
+      }
+    ],
+    "settings": [
+      {
+        "key": "goal",
+        "type": "number",
+        "title": "Daily goal (glasses)",
+        "default": 8,
+        "min": 1,
+        "max": 20
+      },
+      {
+        "key": "nudge",
+        "type": "toggle",
+        "title": "Nudge me every 90 minutes",
+        "default": false
+      }
+    ],
+    "menuItems": [
+      {
+        "id": "log",
+        "title": "Log a glass",
+        "type": "action"
+      }
+    ]
+  },
+  "permissions": [
+    "storage",
+    "liveActivity",
+    "schedule",
+    "events:unlock"
+  ]
+}

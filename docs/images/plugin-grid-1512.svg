@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="346" viewBox="0 0 960 346" font-family="-apple-system, Helvetica, Arial" font-size="11">
+<rect width="100%" height="100%" fill="#0b0b0d"/>
+<text x="20" y="24" fill="#fff" font-size="13" font-weight="700">Hyper Island Home — 2 rows × 18 columns, on a 1512 pt display (row 1484 pt, column 67.33 pt, gutter 16 pt)</text>
+<rect x="20.0" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="40.9" y="150.0" fill="#555" font-size="8" text-anchor="middle">1</text>
+<rect x="71.7" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="92.5" y="150.0" fill="#555" font-size="8" text-anchor="middle">2</text>
+<rect x="123.3" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="144.2" y="150.0" fill="#555" font-size="8" text-anchor="middle">3</text>
+<rect x="175.0" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="195.9" y="150.0" fill="#555" font-size="8" text-anchor="middle">4</text>
+<rect x="226.7" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="247.5" y="150.0" fill="#555" font-size="8" text-anchor="middle">5</text>
+<rect x="278.3" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="299.2" y="150.0" fill="#555" font-size="8" text-anchor="middle">6</text>
+<rect x="330.0" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="350.9" y="150.0" fill="#555" font-size="8" text-anchor="middle">7</text>
+<rect x="381.7" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="402.5" y="150.0" fill="#555" font-size="8" text-anchor="middle">8</text>
+<rect x="433.3" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="454.2" y="150.0" fill="#555" font-size="8" text-anchor="middle">9</text>
+<rect x="485.0" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="505.9" y="150.0" fill="#555" font-size="8" text-anchor="middle">10</text>
+<rect x="536.6" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="557.5" y="150.0" fill="#555" font-size="8" text-anchor="middle">11</text>
+<rect x="588.3" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="609.2" y="150.0" fill="#555" font-size="8" text-anchor="middle">12</text>
+<rect x="640.0" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="660.8" y="150.0" fill="#555" font-size="8" text-anchor="middle">13</text>
+<rect x="691.6" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="712.5" y="150.0" fill="#555" font-size="8" text-anchor="middle">14</text>
+<rect x="743.3" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="764.2" y="150.0" fill="#555" font-size="8" text-anchor="middle">15</text>
+<rect x="795.0" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="815.8" y="150.0" fill="#555" font-size="8" text-anchor="middle">16</text>
+<rect x="846.6" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="867.5" y="150.0" fill="#555" font-size="8" text-anchor="middle">17</text>
+<rect x="898.3" y="40" width="41.7" height="98.0" fill="#1b1d22"/>
+<text x="919.2" y="150.0" fill="#555" font-size="8" text-anchor="middle">18</text>
+<rect x="20.0" y="40" width="196.5" height="98.0" rx="7.4" fill="none" stroke="#0a84ff" stroke-width="1.5"/>
+<text x="28.0" y="58.0" fill="#fff" font-weight="600">Now Playing</text>
+<text x="28.0" y="74.0" fill="#9aa" >2×4 · 317 × 158 pt</text>
+<rect x="226.5" y="40" width="196.5" height="98.0" rx="7.4" fill="none" stroke="#0a84ff" stroke-width="1.5"/>
+<text x="234.5" y="58.0" fill="#fff" font-weight="600">Tasks</text>
+<text x="234.5" y="74.0" fill="#9aa" >2×4 · 317 × 158 pt</text>
+<rect x="432.9" y="40" width="93.6" height="98.0" rx="7.4" fill="none" stroke="#0a84ff" stroke-width="1.5"/>
+<text x="440.9" y="58.0" fill="#fff" font-weight="600">Clock</text>
+<text x="440.9" y="74.0" fill="#9aa" >2×2 · 151 × 158 pt</text>
+<rect x="536.5" y="40" width="248.6" height="98.0" rx="7.4" fill="none" stroke="#0a84ff" stroke-width="1.5"/>
+<text x="544.5" y="58.0" fill="#fff" font-weight="600">Calendar</text>
+<text x="544.5" y="74.0" fill="#9aa" >2×5 · 401 × 158 pt</text>
+<rect x="795.0" y="40" width="145.1" height="98.0" rx="7.4" fill="none" stroke="#0a84ff" stroke-width="1.5"/>
+<text x="803.0" y="58.0" fill="#fff" font-weight="600">System</text>
+<text x="803.0" y="74.0" fill="#9aa" >2×3 · 234 × 158 pt</text>
+<text x="20" y="170.0" fill="#fff" font-size="12" font-weight="600">A slot split into two half-height cells (here 1×3 over 1×3), next to a 2×3</text>
+<rect x="20" y="178.0" width="145.1" height="44.0" rx="7.4" fill="none" stroke="#30d158" stroke-width="1.5"/>
+<text x="28" y="196.0" fill="#fff">1×3 · 234 × 71 pt</text>
+<rect x="20" y="231.9" width="145.1" height="44.0" rx="7.4" fill="none" stroke="#30d158" stroke-width="1.5"/>
+<text x="28" y="249.9" fill="#fff">1×3 · 234 × 71 pt</text>
+<rect x="175.0" y="178.0" width="145.1" height="98.0" rx="7.4" fill="none" stroke="#0a84ff" stroke-width="1.5"/>
+<text x="183.0" y="196.0" fill="#fff">2×3 · 234 × 158 pt</text>
+</svg>
