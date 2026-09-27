@@ -54,13 +54,18 @@ Every published zip is signed. The signature is Ed25519, over the plugin's id, i
 zip's SHA-256. The island installs a downloaded plugin only when that signature checks out against
 the registry's public key, so it's the reviewed zip, under that name and version.
 
-Once, before the first publish:
+The registry's public key (the island has it built in):
 
-1. Run `hi keygen`. It writes the private key to `hi-signing.key` and prints the public key.
-2. Add the private key to this repository's Actions secrets as `HI_SIGNING_KEY`. Then delete the file,
-   or keep it somewhere safe; anyone with it can sign as the registry.
-3. Put the public key in the app (`PluginRules.registryPublicKey`) and here:
-   `public key: (not yet)`.
+    DKzqcHjO/yVh948wuFOw59xAgdNASzVdQoCEQ6OH95Y=
+
+How it was set up, once:
+
+1. `hi keygen` wrote the private key to `hi-signing.key` and printed the public key.
+2. The private key went into this repository's Actions secrets as `HI_SIGNING_KEY`: the file's one
+   line, nothing else. Anyone with it can sign as the registry, so it's kept offline and nowhere else.
+3. The public key went into the app (`PluginRules.registryPublicKey`) and here. `hi pack --sign`
+   refuses any other key, so a wrong secret fails the publish instead of shipping plugins the
+   island won't install.
 
 `hi verify <zip> <entry.json> --key <public key>` checks a download the way the island does.
 

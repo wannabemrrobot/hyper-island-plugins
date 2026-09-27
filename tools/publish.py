@@ -17,7 +17,13 @@ for manifest_path in sorted(glob.glob("plugins/*/manifest.json")):
     m = json.load(open(manifest_path))
     if (m["id"], m["version"]) in published:
         continue
-    subprocess.run([hi, "pack", os.path.dirname(manifest_path), "--out", dist, "--sign"], check=True)
+    r = subprocess.run([hi, "pack", os.path.dirname(manifest_path), "--out", dist, "--sign"],
+                       stderr=subprocess.PIPE, text=True)
+    if r.returncode != 0:
+        # hi's own words, on the run's summary page (it never prints the key itself).
+        why = r.stderr.strip() or f"hi exited {r.returncode}"
+        print(f"::error title=Not published: {m['id']} {m['version']}::{why}")
+        sys.exit(1)
     entry = json.load(open(os.path.join(dist, f"{m['id']}-{m['version']}.json")))
     entry["url"] = f"{base}/{entry['file']}"
     index["plugins"] = [p for p in index["plugins"] if p["id"] != m["id"]] + [entry]
