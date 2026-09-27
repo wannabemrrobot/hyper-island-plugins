@@ -1,5 +1,24 @@
 {
-  "plugins" : [
-
+  "plugins": [
+    {
+      "author": "Hyper Island",
+      "bytes": 7076,
+      "description": "Today's glasses of water at a glance, with a panel to log them and an optional nudge.",
+      "file": "io.hyperisland.sample.streak-0.3.0.zip",
+      "icon": "glass-water",
+      "id": "io.hyperisland.sample.streak",
+      "minAppVersion": "1.0",
+      "name": "Hydration Streak",
+      "permissions": [
+        "storage",
+        "liveActivity",
+        "schedule",
+        "events:unlock"
+      ],
+      "sha256": "67bc01a2e6cfcdfbd83312b23b80722e165994d744674ad8bf7890b2a60b56cf",
+      "signature": "U6XbqNEkvc7dodw7tZGMm9gUd9vlrz+y7r/mX2CdUdW6qEjJI9pjzmJtypzgv92hnePkLVLmIerC3SLjF7LCDg==",
+      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.sample.streak-0.3.0.zip",
+      "version": "0.3.0"
+    }
   ]
 }
