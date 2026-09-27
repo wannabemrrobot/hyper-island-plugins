@@ -18,10 +18,14 @@ for manifest_path in sorted(glob.glob("plugins/*/manifest.json")):
     if (m["id"], m["version"]) in published:
         continue
     r = subprocess.run([hi, "pack", os.path.dirname(manifest_path), "--out", dist, "--sign"],
-                       stderr=subprocess.PIPE, text=True)
+                       capture_output=True, text=True)
+    sys.stdout.write(r.stdout)
     if r.returncode != 0:
-        # hi's own words, on the run's summary page (it never prints the key itself).
-        why = r.stderr.strip() or f"hi exited {r.returncode}"
+        # hi's own words — the check's problems, then why it stopped — on the run's summary page.
+        # (It never prints the key itself.)
+        problems = [l.strip() for l in r.stdout.splitlines() if l.startswith("  ") and not l.strip().startswith(("✓", "→"))]
+        why = "\n".join(problems + [r.stderr.strip() or f"hi exited {r.returncode}"])
+        why = why.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
         print(f"::error title=Not published: {m['id']} {m['version']}::{why}")
         sys.exit(1)
     entry = json.load(open(os.path.join(dist, f"{m['id']}-{m['version']}.json")))
