@@ -3,7 +3,7 @@ name: publish
 on:
   push:
     branches: [main]
-    paths: ["plugins/**"]
+    paths: ["plugins/**", "tools/**", ".github/workflows/publish.yml"]   # new plugins, or a new hi
   workflow_dispatch:          # "Run workflow" in the Actions tab — e.g. once the signing key is added
 
 permissions:
@@ -13,7 +13,7 @@ jobs:
   publish:
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Get hi (pinned by its SHA-256)
         id: hi
