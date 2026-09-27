@@ -1,0 +1,43 @@
+{
+  "$schema": "./manifest.schema.json",
+  "id": "io.hyperisland.antigravity",
+  "name": "Antigravity",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hyper Island"
+  },
+  "description": "Antigravity's conversations today and its latest task's checklist, and whether it's open — from its own files on this Mac.",
+  "minAppVersion": "1.0",
+  "main": "main.js",
+  "icon": "orbit",
+  "contributes": {
+    "widgets": [
+      {
+        "id": "work",
+        "title": "Antigravity",
+        "icon": "orbit",
+        "sizes": ["2x3", "1x3"]
+      }
+    ]
+  },
+  "reads": [
+    {
+      "id": "data",
+      "title": "Antigravity's conversations and task lists",
+      "kind": "folder",
+      "paths": ["~/.gemini/antigravity"],
+      "files": ["conversations/*.pb", "brain/*/task.md"]
+    },
+    {
+      "id": "app",
+      "title": "Whether Antigravity is open",
+      "kind": "process",
+      "names": ["Antigravity"]
+    }
+  ],
+  "permissions": [
+    "schedule",
+    "events:islandOpen",
+    "events:islandClose"
+  ]
+}

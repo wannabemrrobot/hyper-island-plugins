@@ -1,0 +1,50 @@
+{
+  "$schema": "./manifest.schema.json",
+  "id": "io.hyperisland.claude",
+  "name": "Claude Code",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hyper Island"
+  },
+  "description": "Today's Claude Code sessions, tokens and tool calls, and what's running now — read from its own files, never the network.",
+  "minAppVersion": "1.0",
+  "main": "main.js",
+  "icon": "sparkles",
+  "contributes": {
+    "widgets": [
+      {
+        "id": "usage",
+        "title": "Claude Code",
+        "icon": "sparkles",
+        "sizes": ["2x3", "1x3"]
+      }
+    ]
+  },
+  "reads": [
+    {
+      "id": "projects",
+      "title": "Claude Code's session transcripts",
+      "kind": "folder",
+      "paths": ["$CLAUDE_CONFIG_DIR/projects", "~/.config/claude/projects", "~/.claude/projects"],
+      "files": ["*/*.jsonl", "*/*/subagents/*.jsonl"]
+    },
+    {
+      "id": "sessions",
+      "title": "Claude Code's list of running sessions",
+      "kind": "folder",
+      "paths": ["$CLAUDE_CONFIG_DIR/sessions", "~/.config/claude/sessions", "~/.claude/sessions"],
+      "files": ["*.json"]
+    },
+    {
+      "id": "cli",
+      "title": "Whether Claude Code is running",
+      "kind": "process",
+      "names": ["claude"]
+    }
+  ],
+  "permissions": [
+    "schedule",
+    "events:islandOpen",
+    "events:islandClose"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "./manifest.schema.json",
+  "id": "io.hyperisland.copilot",
+  "name": "Copilot CLI",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hyper Island"
+  },
+  "description": "GitHub Copilot CLI's premium requests today and this month, its sessions and the lines it changed — from its own logs.",
+  "minAppVersion": "1.0",
+  "main": "main.js",
+  "icon": "bot",
+  "contributes": {
+    "widgets": [
+      {
+        "id": "usage",
+        "title": "Copilot CLI",
+        "icon": "bot",
+        "sizes": ["2x3", "1x3"]
+      }
+    ]
+  },
+  "reads": [
+    {
+      "id": "sessions",
+      "title": "Copilot CLI's session logs",
+      "kind": "folder",
+      "paths": ["$COPILOT_HOME/session-state", "~/.copilot/session-state"],
+      "files": ["*/events.jsonl", "*.jsonl"]
+    },
+    {
+      "id": "cli",
+      "title": "Whether Copilot CLI is running",
+      "kind": "process",
+      "names": ["copilot"]
+    }
+  ],
+  "permissions": [
+    "schedule",
+    "events:islandOpen",
+    "events:islandClose"
+  ]
+}

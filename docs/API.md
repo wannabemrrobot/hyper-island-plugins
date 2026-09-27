@@ -115,6 +115,75 @@ Drawing has no other effects. Live activities, schedules and rail lights happen 
 | `events:nowPlaying` | Adds the track's title, artist and app to `trackChange`. |
 | `commands:lyrics`, `commands:glass` | Changing the island's own options. This is switched off for now. |
 
+## Reading local data
+
+A plugin can read what other apps keep on the Mac: a folder of logs, a SQLite database, and whether a
+process is running. It declares each in its manifest's `reads`, and reads only those. Plugins have
+no network: what's read stays on the Mac, and on screen.
+
+```json
+"reads": [
+  { "id": "projects", "title": "Claude Code's session transcripts", "kind": "folder",
+    "paths": ["$CLAUDE_CONFIG_DIR/projects", "~/.config/claude/projects", "~/.claude/projects"],
+    "files": ["*/*.jsonl", "*/*/subagents/*.jsonl"] },
+  { "id": "db", "title": "opencode's sessions and messages", "kind": "sqlite",
+    "paths": ["$XDG_DATA_HOME/opencode/opencode.db", "~/.local/share/opencode/opencode.db"],
+    "tables": ["session", "message"] },
+  { "id": "cli", "title": "Whether Claude Code is running", "kind": "process", "names": ["claude"] }
+]
+```
+
+**Don't assume one Mac's install.** List every place the thing may be, most specific first:
+- the tool's own environment variable, as `$NAME/…`;
+- its current default;
+- the older defaults it has moved away from.
+
+The island finds them on each Mac:
+- **Environment variables:** it asks the person's login shell for any the island didn't start with,
+  since apps opened from the Dock don't see a shell profile.
+- **Folders:** every place that exists is used; a tool can have files in two.
+- **Databases:** the first place found is used.
+- **Choose…:** in Settings › Plugins the person can point any read somewhere else, or back to Automatic.
+
+**What it can reach:**
+- **Folders:** only the files matching its `files` patterns (`*` stays within one folder level, and
+  `**` isn't allowed), never through a symbolic link.
+- **Databases:** opened read-only, and SQLite's authorizer allows only the listed `tables`. There's
+  no ATTACH, no PRAGMA and nothing that writes. List the tables with the data and leave out the ones
+  with sign-ins.
+- **Processes:** a count by exact name, and whether given process ids are alive and have that name.
+  Nothing else about them.
+
+Each read's places, patterns, tables and names count as permissions. An update that reads anything
+new waits for the person to install it.
+
+**In the script,** in `activate`, actions, alarms and events (never while drawing):
+- `local.list(read, { since })`: a folder read's files, newest first: `{ root, path, size, modified }`.
+- `local.read(read, file, { from, max, lines, contains, find })`: part of a file, from a byte offset.
+  - With `lines`, only whole lines.
+  - With `contains`, only the lines with that text. The island looks through up to 16 MB for them,
+    so following a big log is cheap.
+  - With `find`, where a text is and the 256 bytes after it: a timestamp without the huge line it's in.
+  - Carry on from `next`.
+- `local.query(read, sql, params)`: one SELECT, rows as objects, `?` for params, 100 ms at most.
+  `json_extract(value, '$.a', '$.b')` reads a JSON column once for both fields.
+- `local.running(read)`, `local.alive(read, pids)`.
+- `ctx.reads` (also in `render`): `{ id: { found, chosen, paths } }`. Say when something isn't on this
+  Mac, rather than showing zeros.
+
+**Budget:**
+- Up to 200 reads per handler.
+- The island's time spent reading counts as the plugin's own, 250 ms per handler at most.
+- A first look can have more to read than one handler gets. Keep offsets, stop at a time budget, and
+  carry on at the next alarm.
+- Read only what's new: files by offset, tables by `rowid`, and in time order a binary search finds
+  "today".
+
+**Testing:**
+- `hi check` and `hi render` read this Mac.
+- `--read <id>=<path>` tries another install; an empty path means "not on this Mac".
+- `--then alarm:look*5` runs its alarms afterwards, so you can see it catch up.
+
 ## Rail buttons, panels and menu items
 
 - **Rail buttons:** each is off until the user switches it on in Settings › Plugins, and the rail has
@@ -134,6 +203,7 @@ the plugin's widgets and sends it the `settings` event.
 - **Memory:** 24 MB of JavaScript heap.
 - **CPU:** 0.3 % of a core, averaged over a minute.
 - **Redraws:** twice a second at most.
+- **Reading:** 200 reads and 250 ms of the island's time per handler, counted in its CPU.
 
 The island measures each plugin (Settings › Plugins shows the meters) and pauses one that keeps going
 over. `hi bench` measures a plugin before you ship it.
@@ -150,5 +220,6 @@ over. `hi bench` measures a plugin before you ship it.
 - **`hi render`:** its trees, or images drawn by the island with `--png`.
 - **`hi sdk`:** add the typing files to a plugin.
 - **`hi pack`:** a zip and its SHA-256.
+- **`--read <id>=<path>`**, **`--then alarm:<name>*N`:** with check, bench and render, as above.
 
 If macOS won't open a downloaded `hi`, run `xattr -d com.apple.quarantine hi` once.
