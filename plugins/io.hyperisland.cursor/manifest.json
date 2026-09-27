@@ -1,0 +1,44 @@
+{
+  "$schema": "./manifest.schema.json",
+  "id": "io.hyperisland.cursor",
+  "name": "Cursor",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hyper Island"
+  },
+  "description": "Today's Cursor chats, prompts and replies, and the lines they changed — from Cursor's own chat history on this Mac.",
+  "minAppVersion": "1.0",
+  "main": "main.js",
+  "icon": "mouse-pointer-2",
+  "contributes": {
+    "widgets": [
+      {
+        "id": "usage",
+        "title": "Cursor",
+        "icon": "mouse-pointer-2",
+        "sizes": ["2x3", "1x3"]
+      }
+    ]
+  },
+  "reads": [
+    {
+      "id": "db",
+      "title": "Cursor's chat history",
+      "kind": "sqlite",
+      "paths": ["~/Library/Application Support/Cursor/User/globalStorage/state.vscdb"],
+      "tables": ["cursorDiskKV"]
+    },
+    {
+      "id": "app",
+      "title": "Whether Cursor is open",
+      "kind": "process",
+      "names": ["Cursor"]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "schedule",
+    "events:islandOpen",
+    "events:islandClose"
+  ]
+}

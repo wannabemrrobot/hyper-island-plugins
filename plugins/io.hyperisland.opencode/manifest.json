@@ -1,0 +1,50 @@
+{
+  "$schema": "./manifest.schema.json",
+  "id": "io.hyperisland.opencode",
+  "name": "opencode",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hyper Island"
+  },
+  "description": "Today's opencode sessions, tokens and cost by its own reckoning, and whether it's running — from its local database.",
+  "minAppVersion": "1.0",
+  "main": "main.js",
+  "icon": "square-terminal",
+  "contributes": {
+    "widgets": [
+      {
+        "id": "usage",
+        "title": "opencode",
+        "icon": "square-terminal",
+        "sizes": ["2x3", "1x3"]
+      }
+    ]
+  },
+  "reads": [
+    {
+      "id": "db",
+      "title": "opencode's sessions and messages",
+      "kind": "sqlite",
+      "paths": ["$XDG_DATA_HOME/opencode/opencode.db", "~/.local/share/opencode/opencode.db"],
+      "tables": ["session", "message"]
+    },
+    {
+      "id": "storage",
+      "title": "opencode's messages (older versions)",
+      "kind": "folder",
+      "paths": ["$XDG_DATA_HOME/opencode/storage", "~/.local/share/opencode/storage"],
+      "files": ["message/*/*.json"]
+    },
+    {
+      "id": "cli",
+      "title": "Whether opencode is running",
+      "kind": "process",
+      "names": ["opencode"]
+    }
+  ],
+  "permissions": [
+    "schedule",
+    "events:islandOpen",
+    "events:islandClose"
+  ]
+}

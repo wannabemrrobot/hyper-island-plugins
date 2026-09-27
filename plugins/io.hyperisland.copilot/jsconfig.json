@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "strict": true,
+    "noEmit": true,
+    "target": "es2020",
+    "lib": ["es2020"]
+  },
+  "include": ["*.js", "hyper-island.d.ts"]
+}
