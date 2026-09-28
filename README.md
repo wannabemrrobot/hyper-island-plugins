@@ -15,9 +15,12 @@ island lists in its plugin gallery.
 3. **Develop it live.** `hi dev <folder>` installs it on the island and reloads it each time you save,
    showing its `console.log` output and errors. It needs Developer mode (Settings › Plugins). Place
    its widget in edit mode: the pencil at the island's top right.
-4. **Check it.** `hi check <folder>` and `hi bench <folder>` must both pass. `hi render <folder> --png`
-   has the island draw it at every size; attach the images to your pull request.
-5. **Open a pull request** that adds it as `plugins/<id>/`. The folder is named after its id.
+4. **Draw its pictures.** `hi render <folder> --png` has the island draw each widget at every size
+   into the plugin's `previews/` folder: the pictures edit mode's picker shows. It draws them with
+   `ctx.preview` set, so show sample content then, never what's on your Mac. Commit them with the
+   plugin.
+5. **Check it.** `hi check <folder> --publish` and `hi bench <folder>` must both pass.
+6. **Open a pull request** that adds it as `plugins/<id>/`. The folder is named after its id.
 
 The API is in [docs/API.md](docs/API.md), and the sizes are in [docs/SIZES.md](docs/SIZES.md). A
 change to a plugin bumps its `version`; CI refuses a change that doesn't.
@@ -26,8 +29,9 @@ change to a plugin bumps its `version`; CI refuses a change that doesn't.
 
 `check.yml` runs on every pull request that touches `plugins/`. For each changed plugin, it runs:
 
-- **`hi check`:** the manifest, its icons and its script. It loads the script, runs `activate`, and
-  draws every widget at every size it lists. Any error fails the check.
+- **`hi check --publish`:** the manifest, its icons and its script. It loads the script, runs
+  `activate`, and draws every widget at every size it lists, and as its preview. Its `previews/`
+  must hold a picture of each, drawn by the island. Any error fails the check.
 - **`hi bench`:** what drawing each widget costs. Over the budget (p95 4 ms) fails.
 - **Housekeeping:** that the folder name matches the id, and that the version went up.
 
@@ -36,7 +40,9 @@ change to a plugin bumps its `version`; CI refuses a change that doesn't.
 CI can't judge the look. A maintainer checks each pull request against its template:
 
 - **Sizes:** the widget reads well at every size it lists (see the island's `docs/PLUGIN_SIZES.md`).
-  Authors attach `hi render <folder> --png`: each size, drawn by the island itself.
+  Its `previews/` show each size, drawn by the island itself.
+- **Pictures:** they show sample content, nothing from the author's Mac, and they're what it looks
+  like.
 - **Rail icons:** a rail button's icon must come from the reviewed set, sized by eye. Adding an icon
   to that set is a design review in the app, not here.
 - **Permissions:** each one the manifest asks for is needed for what the plugin does.

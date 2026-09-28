@@ -147,6 +147,12 @@ function look(ctx, budget) {
   ctx.refresh("usage");
 }
 
+/** Its picture in the picker (ctx.preview): a believable day, nobody's real one. */
+var SAMPLE = {
+  totals: { sessions: 3, projects: 2, turns: 148, input: 2.4e6, output: 186e3, tools: 212, model: "Sonnet 5" },
+  live: { count: 1, names: ["web-app"] }
+};
+
 HyperIsland.register({
   activate: function (ctx) { schedule.every("look", { minutes: 1 }); look(ctx, 120); },
   alarms: { look: function (ctx) { if (open || behind) look(ctx); } },
@@ -160,14 +166,16 @@ HyperIsland.register({
       render: function (ctx) {
         var size = ctx.size || { rows: 2, columns: 3 };
         var reads = ctx.reads || {};
-        if (reads.projects && !reads.projects.found) {
+        var preview = !!ctx.preview;
+        if (!preview && reads.projects && !reads.projects.found) {
           if (size.rows === 1) return ui.card({}, [ui.spacer(), ui.row([ui.icon("sparkles", 16), ui.text("Claude Code isn't on this Mac", "caption")], { spacing: 8 }), ui.spacer()]);
           return ui.card({ title: "Claude Code", icon: "sparkles" }, [
             ui.text("Not on this Mac", "body"),
             ui.text("Somewhere else? Point to it in Settings › Plugins.", "caption")
           ]);
         }
-        var t = totals();
+        var t = preview ? SAMPLE.totals : totals();
+        var on = preview ? SAMPLE.live : live;
         var tokens = "↑" + compact(t.input) + " ↓" + compact(t.output);
         if (size.rows === 1) {
           return ui.card({}, [
@@ -176,12 +184,12 @@ HyperIsland.register({
               ui.icon("sparkles", 16),
               ui.text(t.sessions + (t.sessions === 1 ? " session" : " sessions"), "body"),
               ui.spacer(),
-              ui.text(live.count ? live.count + " live" : tokens, "mono")
+              ui.text(on.count ? on.count + " live" : tokens, "mono")
             ], { spacing: 8 }),
             ui.spacer()
           ]);
         }
-        if (!t.turns && !live.count) {
+        if (!t.turns && !on.count) {
           return ui.card({ title: "Claude Code", icon: "sparkles" }, [ui.text("Nothing yet today", "body"), ui.spacer()]);
         }
         var head = [ui.text(String(t.sessions), "title"), ui.text((t.sessions === 1 ? "session" : "sessions") + (t.projects > 1 ? " · " + t.projects + " projects" : ""), "caption"), ui.spacer()];
@@ -189,7 +197,7 @@ HyperIsland.register({
         return ui.card({ title: "Claude Code", icon: "sparkles" }, [
           ui.row(head, { spacing: 5 }),
           ui.text(tokens + " · " + t.turns + " turns", "mono"),
-          ui.text(live.count ? live.count + " live · " + live.names.slice(0, 3).join(" · ") : t.tools + " tool calls", "caption")
+          ui.text(on.count ? on.count + " live · " + on.names.slice(0, 3).join(" · ") : t.tools + " tool calls", "caption")
         ]);
       }
     }

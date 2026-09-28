@@ -92,6 +92,9 @@ function look(ctx, budget) { scan(budget || 60); ctx.refresh("usage"); }
 /** @param {number} n @param {string} one @param {string} many */
 function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
 
+/** Its picture in the picker (ctx.preview): a believable day, nobody's real one. */
+var SAMPLE = { today: 12, month: 164, sessions: 3, added: 482, removed: 97, model: "GPT-5" };
+
 HyperIsland.register({
   activate: function (ctx) { schedule.every("look", { minutes: 1 }); look(ctx, 150); },
   alarms: { look: function (ctx) { if (open || behind) look(ctx); } },
@@ -105,28 +108,31 @@ HyperIsland.register({
       render: function (ctx) {
         var size = ctx.size || { rows: 2, columns: 3 };
         var reads = ctx.reads || {};
-        if (reads.sessions && !reads.sessions.found) {
+        var preview = !!ctx.preview;
+        if (!preview && reads.sessions && !reads.sessions.found) {
           if (size.rows === 1) return ui.card({}, [ui.spacer(), ui.row([ui.icon("bot", 16), ui.text("Copilot CLI isn't on this Mac", "caption")], { spacing: 8 }), ui.spacer()]);
           return ui.card({ title: "Copilot CLI", icon: "bot" }, [
             ui.text("Not on this Mac", "body"),
             ui.text("Somewhere else? Point to it in Settings › Plugins.", "caption")
           ]);
         }
-        var t = totals();
+        var t = preview ? SAMPLE : totals();
+        var run = preview ? 0 : running;
         if (size.rows === 1) {
           return ui.card({}, [
             ui.spacer(),
-            ui.row([ui.icon("bot", 16), ui.text(plural(t.today, "premium request", "premium requests"), "body"), ui.spacer(),
+            ui.row([ui.icon("bot", 16),
+                    ui.text(size.columns >= 4 ? plural(t.today, "premium request", "premium requests") : t.today + " today", "body"), ui.spacer(),
                     ui.text(t.month + " this month", "mono")], { spacing: 8 }),
             ui.spacer()
           ]);
         }
-        var last = running ? plural(running, "session running", "sessions running")
+        var last = run ? plural(run, "session running", "sessions running")
           : t.added || t.removed ? "+" + t.added + " −" + t.removed + " lines today" : t.model;
         return ui.card({ title: "Copilot CLI", icon: "bot" }, [
           ui.row([ui.text(String(t.today), "title"), ui.text(t.today === 1 ? "premium request today" : "premium requests today", "caption")], { spacing: 5 }),
           ui.text(t.month + " this month · " + plural(t.sessions, "session", "sessions") + " today", "mono"),
-          ui.text(last || (behind ? "Still reading its logs…" : "Nothing yet today"), "caption")
+          ui.text(last || (behind && !preview ? "Still reading its logs…" : "Nothing yet today"), "caption")
         ]);
       }
     }

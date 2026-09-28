@@ -85,6 +85,9 @@ function look(ctx) {
 /** @param {number} n @param {string} one @param {string} many */
 function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
 
+/** Its picture in the picker (ctx.preview): a believable day, nobody's real one. */
+var SAMPLE = { sessions: 4, input: 1.8e6, cache: 3.2e6, output: 142e3, reasoning: 21e3, cost: 3.42, replies: 57, model: "anthropic/claude-sonnet-5" };
+
 HyperIsland.register({
   activate: function (ctx) { schedule.every("look", { minutes: 1 }); look(ctx); },
   alarms: { look: function (ctx) { if (open) look(ctx); } },
@@ -98,7 +101,8 @@ HyperIsland.register({
       render: function (ctx) {
         var size = ctx.size || { rows: 2, columns: 3 };
         var reads = ctx.reads || {};
-        var here = (reads.db && reads.db.found) || (reads.storage && reads.storage.found);
+        var preview = !!ctx.preview;
+        var here = preview || (reads.db && reads.db.found) || (reads.storage && reads.storage.found);
         if (!here) {
           if (size.rows === 1) return ui.card({}, [ui.spacer(), ui.row([ui.icon("square-terminal", 16), ui.text("opencode isn't on this Mac", "caption")], { spacing: 8 }), ui.spacer()]);
           return ui.card({ title: "opencode", icon: "square-terminal" }, [
@@ -106,21 +110,22 @@ HyperIsland.register({
             ui.text("Somewhere else? Point to it in Settings › Plugins.", "caption")
           ]);
         }
-        var t = today;
+        var t = preview ? SAMPLE : today;
+        var run = preview ? 2 : running;
         var tokens = "↑" + compact(t.input + t.cache) + " ↓" + compact(t.output + t.reasoning);
         var cost = t.cost >= 0.01 ? "$" + t.cost.toFixed(2) : "";
         if (size.rows === 1) {
           return ui.card({}, [
             ui.spacer(),
             ui.row([ui.icon("square-terminal", 16), ui.text(plural(t.sessions, "session", "sessions"), "body"), ui.spacer(),
-                    ui.text(running ? running + " running" : cost || tokens, "mono")], { spacing: 8 }),
+                    ui.text(run ? run + " running" : cost || tokens, "mono")], { spacing: 8 }),
             ui.spacer()
           ]);
         }
         if (!t.replies) {
           return ui.card({ title: "opencode", icon: "square-terminal" }, [
             ui.text("Nothing yet today", "body"),
-            ui.text(running ? plural(running, "session running", "sessions running") : "", "caption")
+            ui.text(run ? plural(run, "session running", "sessions running") : "", "caption")
           ]);
         }
         var head = [ui.text(String(t.sessions), "title"), ui.text(t.sessions === 1 ? "session" : "sessions", "caption"), ui.spacer()];
@@ -128,7 +133,7 @@ HyperIsland.register({
         return ui.card({ title: "opencode", icon: "square-terminal" }, [
           ui.row(head, { spacing: 5 }),
           ui.text(tokens + " · " + plural(t.replies, "reply", "replies"), "mono"),
-          ui.text(running ? plural(running, "session running", "sessions running") + (t.model ? " · " + t.model : "") : t.model, "caption")
+          ui.text(run ? plural(run, "session running", "sessions running") + (t.model ? " · " + t.model : "") : t.model, "caption")
         ]);
       }
     }

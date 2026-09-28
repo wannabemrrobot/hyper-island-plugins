@@ -57,6 +57,9 @@ function look(ctx) {
 /** @param {number} n @param {string} one @param {string} many */
 function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
 
+/** Its picture in the picker (ctx.preview): a believable day, nobody's real one. */
+var SAMPLE = { today: 3, total: 41, task: { title: "Settings page", done: 5, all: 8 } };
+
 HyperIsland.register({
   activate: function (ctx) { schedule.every("look", { minutes: 1 }); look(ctx); },
   alarms: { look: function (ctx) { if (open) look(ctx); } },
@@ -70,29 +73,32 @@ HyperIsland.register({
       render: function (ctx) {
         var size = ctx.size || { rows: 2, columns: 3 };
         var reads = ctx.reads || {};
-        if (reads.data && !reads.data.found) {
+        var preview = !!ctx.preview;
+        if (!preview && reads.data && !reads.data.found) {
           if (size.rows === 1) return ui.card({}, [ui.spacer(), ui.row([ui.icon("orbit", 16), ui.text("Antigravity isn't on this Mac", "caption")], { spacing: 8 }), ui.spacer()]);
           return ui.card({ title: "Antigravity", icon: "orbit" }, [
             ui.text("Not on this Mac", "body"),
             ui.text("Somewhere else? Point to it in Settings › Plugins.", "caption")
           ]);
         }
-        var task = seen.task;
+        var got = preview ? SAMPLE : seen;
+        var appOpen = preview ? false : running;
+        var task = got.task;
         if (size.rows === 1) {
           return ui.card({}, [
             ui.spacer(),
-            ui.row([ui.icon("orbit", 16), ui.text(plural(seen.today, "conversation", "conversations") + " today", "body"), ui.spacer(),
-                    ui.text(task && task.all ? task.done + "/" + task.all : running ? "open" : "", "mono")], { spacing: 8 }),
+            ui.row([ui.icon("orbit", 16), ui.text(plural(got.today, "conversation", "conversations") + " today", "body"), ui.spacer(),
+                    ui.text(task && task.all ? task.done + "/" + task.all : appOpen ? "open" : "", "mono")], { spacing: 8 }),
             ui.spacer()
           ]);
         }
         var kids = [
-          ui.row([ui.text(String(seen.today), "title"), ui.text((seen.today === 1 ? "conversation" : "conversations") + " today · " + seen.total + " in all", "caption")], { spacing: 5 })
+          ui.row([ui.text(String(got.today), "title"), ui.text((got.today === 1 ? "conversation" : "conversations") + " today · " + got.total + " in all", "caption")], { spacing: 5 })
         ];
         if (task && task.all) {
           kids.push(ui.meter({ label: (task.title || "Latest task").toUpperCase(), value: task.done + " of " + task.all, fraction: task.done / task.all }));
         } else {
-          kids.push(ui.text(running ? "Antigravity is open" : seen.total ? "No task list yet" : "Nothing yet", "caption"));
+          kids.push(ui.text(appOpen ? "Antigravity is open" : got.total ? "No task list yet" : "Nothing yet", "caption"));
         }
         return ui.card({ title: "Antigravity", icon: "orbit" }, kids);
       }

@@ -24,7 +24,7 @@ for folder in folders:
     before = old_version(folder)
     if before is not None and before == manifest.get("version"):
         print(f"✗ {folder}: changed, but its version is still {before} — bump it"); failed = True
-    for cmd in (["check", path], ["bench", path, "--runs", "1000"]):
+    for cmd in (["check", path, "--publish"], ["bench", path, "--runs", "1000"]):
         if subprocess.run([hi] + cmd).returncode != 0:
             failed = True
 
