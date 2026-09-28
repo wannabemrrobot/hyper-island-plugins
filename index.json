@@ -2,9 +2,9 @@
   "plugins": [
     {
       "author": "Hyper Island",
-      "bytes": 8743,
+      "bytes": 30873,
       "description": "Antigravity's conversations today and its latest task's checklist, and whether it's open \u2014 from its own files on this Mac.",
-      "file": "io.hyperisland.antigravity-1.0.0.zip",
+      "file": "io.hyperisland.antigravity-1.1.0.zip",
       "icon": "orbit",
       "id": "io.hyperisland.antigravity",
       "minAppVersion": "1.0",
@@ -16,16 +16,16 @@
         "read:~/.gemini/antigravity (conversations/*.pb, brain/*/task.md)",
         "process:Antigravity"
       ],
-      "sha256": "5bf8fb822eb18b67d55df0b61bafe12750e49f1bf5b459c6e9e7dee3b815d3e8",
-      "signature": "sd/ZzEVlvsHdKZPmsOU5ifJbJeEPWCKD0HNlkQtM+Y2UNL8gsK4RX5rpknHhEksU6A/cQcTEhr+zaVHfC/NTAQ==",
-      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.antigravity-1.0.0.zip",
-      "version": "1.0.0"
+      "sha256": "d85a4ba348e048378f8dab352580e00fdd566bd6f404c3b6e9e7e34c1efdc656",
+      "signature": "Or2VO8hEKdCIR8YVPTCHrRESeNCAgGGceuoeVwVkyUox96LEfE4qu+wkzcbhR70whjF7c5yYX+P3NKUe5Z7JCA==",
+      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.antigravity-1.1.0.zip",
+      "version": "1.1.0"
     },
     {
       "author": "Hyper Island",
-      "bytes": 10391,
+      "bytes": 32868,
       "description": "Today's Claude Code sessions, tokens and tool calls, and what's running now \u2014 read from its own files, never the network.",
-      "file": "io.hyperisland.claude-1.0.0.zip",
+      "file": "io.hyperisland.claude-1.1.0.zip",
       "icon": "sparkles",
       "id": "io.hyperisland.claude",
       "minAppVersion": "1.0",
@@ -42,16 +42,16 @@
         "read:~/.claude/sessions (*.json)",
         "process:claude"
       ],
-      "sha256": "dd2da746b3ec5f5951fbd28b299f67661c5569c0b800e03696f05acfd2deb488",
-      "signature": "rRfw3yLtYmHD42jDUn556/JVMCZiTVWq107j4IzHXejBsuKwgxwhpCG7Zri//ZYeGqTkAk+/25AXH5lO6ZGuAA==",
-      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.claude-1.0.0.zip",
-      "version": "1.0.0"
+      "sha256": "261fc24ab3c4db789b05d0f82cde3c5af46caa618293bc9b1861d2604d7b8237",
+      "signature": "50E8lSrFOSXwxBEvIyJlURYn55burg5F6iGLZg05N71be2bEuwFzZQGA2DyyXAlSukiN6nbxg9rTKs6NzI+mCw==",
+      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.claude-1.1.0.zip",
+      "version": "1.1.0"
     },
     {
       "author": "Hyper Island",
-      "bytes": 9138,
+      "bytes": 32833,
       "description": "GitHub Copilot CLI's premium requests today and this month, its sessions and the lines it changed \u2014 from its own logs.",
-      "file": "io.hyperisland.copilot-1.0.0.zip",
+      "file": "io.hyperisland.copilot-1.1.0.zip",
       "icon": "bot",
       "id": "io.hyperisland.copilot",
       "minAppVersion": "1.0",
@@ -64,16 +64,16 @@
         "read:~/.copilot/session-state (*/events.jsonl, *.jsonl)",
         "process:copilot"
       ],
-      "sha256": "6e9badf3d0b2fda74d87bbc5e93238d4373f4d3711e4692b57939413dcaa89cb",
-      "signature": "8CriFDIAbjAt3nYaqbXHWhNthu9/fFZCkM82D5VemmNeltIvOhQ3CRKIMUJypi/9bIzQMBx2KBs0/vopaiQ6CQ==",
-      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.copilot-1.0.0.zip",
-      "version": "1.0.0"
+      "sha256": "8c318283405309aff22457c09cd02789faad871d6689ffcbbf65a636a5071814",
+      "signature": "oB/iaXFlwEMIxWutB9cegChsZxK1z1GCZ2QRXWfy4AoPxvdR1FQrF/KyUDJqEnGdvxTF8nFbeS8argIp5HjXAg==",
+      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.copilot-1.1.0.zip",
+      "version": "1.1.0"
     },
     {
       "author": "Hyper Island",
-      "bytes": 9820,
+      "bytes": 31936,
       "description": "Today's Cursor chats, prompts and replies, and the lines they changed \u2014 from Cursor's own chat history on this Mac.",
-      "file": "io.hyperisland.cursor-1.0.0.zip",
+      "file": "io.hyperisland.cursor-1.1.0.zip",
       "icon": "mouse-pointer-2",
       "id": "io.hyperisland.cursor",
       "minAppVersion": "1.0",
@@ -86,16 +86,16 @@
         "read:~/Library/Application Support/Cursor/User/globalStorage/state.vscdb (cursorDiskKV)",
         "process:Cursor"
       ],
-      "sha256": "7078768893f6bf3977823a14a964780c91dae9d708a85704d4401c148dae5d40",
-      "signature": "zhiIvhLSOMNrtTQTnlos5WsLUauzwsjAwpSemUnOQ+voac7Uh3PDgEKbAVfkpjRhL9STabH+CDw+yzbjOJN+Ag==",
-      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.cursor-1.0.0.zip",
-      "version": "1.0.0"
+      "sha256": "02cd4951a8a2432c0b21ef66174cc4dcf5130f5f94ff559e6e1d3bb54b60aadf",
+      "signature": "e6lJjNTWH4uFQX8hsVgq2UtMzZffovN14aLaI2V+r1f3KlH+lN20u8b5bDOvVJkbJDMG8FAuDSZEC9EZRQDMDQ==",
+      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.cursor-1.1.0.zip",
+      "version": "1.1.0"
     },
     {
       "author": "Hyper Island",
-      "bytes": 9526,
+      "bytes": 34876,
       "description": "Today's opencode sessions, tokens and cost by its own reckoning, and whether it's running \u2014 from its local database.",
-      "file": "io.hyperisland.opencode-1.0.0.zip",
+      "file": "io.hyperisland.opencode-1.1.0.zip",
       "icon": "square-terminal",
       "id": "io.hyperisland.opencode",
       "minAppVersion": "1.0",
@@ -110,16 +110,16 @@
         "read:~/.local/share/opencode/storage (message/*/*.json)",
         "process:opencode"
       ],
-      "sha256": "1c67389fba1f2403f076f3a6eb017d6c7c3e1de09070a760fb37ae3ffcaa2990",
-      "signature": "Mjynvfv2wJ5X2wqMwNr29THgWx1txUD+xT/hq2CJx5eYNeNYzzNoxYT4YwR121XXQPkByXZ4rW0mnYynRBtJBw==",
-      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.opencode-1.0.0.zip",
-      "version": "1.0.0"
+      "sha256": "ec6111eabf858623876f5eca993fb5d3314237b955b4ed88970217d5342e1c9c",
+      "signature": "wKfOjge7N1ltAQwnY9uaXQVhlCUMKR8hRkzdBAYFsSrZXTs8sXrSUFevW2ATe208t4R9fDECncJnrzFVsm7OAw==",
+      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.opencode-1.1.0.zip",
+      "version": "1.1.0"
     },
     {
       "author": "Hyper Island",
-      "bytes": 7076,
+      "bytes": 32238,
       "description": "Today's glasses of water at a glance, with a panel to log them and an optional nudge.",
-      "file": "io.hyperisland.sample.streak-0.3.0.zip",
+      "file": "io.hyperisland.sample.streak-0.4.0.zip",
       "icon": "glass-water",
       "id": "io.hyperisland.sample.streak",
       "minAppVersion": "1.0",
@@ -130,10 +130,10 @@
         "schedule",
         "events:unlock"
       ],
-      "sha256": "67bc01a2e6cfcdfbd83312b23b80722e165994d744674ad8bf7890b2a60b56cf",
-      "signature": "U6XbqNEkvc7dodw7tZGMm9gUd9vlrz+y7r/mX2CdUdW6qEjJI9pjzmJtypzgv92hnePkLVLmIerC3SLjF7LCDg==",
-      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.sample.streak-0.3.0.zip",
-      "version": "0.3.0"
+      "sha256": "ead4197eb183b068d68f6718376f8329548edb48539dfddd5da8d00c6fc5c1dd",
+      "signature": "4K0K3DFmMR31fBI8t4IQ9ILPYJnUPTDKFf1Eir9Sox1FqAofWRjofcdbvN2eFsYpmzJ5S1LfJC9LsluuDDomDw==",
+      "url": "https://github.com/wannabemrrobot/hyper-island-plugins/releases/download/plugins/io.hyperisland.sample.streak-0.4.0.zip",
+      "version": "0.4.0"
     }
   ]
 }
