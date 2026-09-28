@@ -103,6 +103,9 @@ function look(ctx, budget) { scan(budget); ctx.refresh("usage"); }
 /** @param {number} n @param {string} one @param {string} many */
 function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
 
+/** Its picture in the picker (ctx.preview): a believable day, nobody's real one. */
+var SAMPLE = { prompts: 27, chats: 4, replies: 31, added: 356, removed: 88, model: "GPT-5" };
+
 HyperIsland.register({
   activate: function (ctx) { schedule.every("look", { minutes: 1 }); look(ctx, 150); },
   alarms: { look: function (ctx) { if (open || behind) look(ctx, 60); } },
@@ -116,14 +119,16 @@ HyperIsland.register({
       render: function (ctx) {
         var size = ctx.size || { rows: 2, columns: 3 };
         var reads = ctx.reads || {};
-        if (reads.db && !reads.db.found) {
+        var preview = !!ctx.preview;
+        if (!preview && reads.db && !reads.db.found) {
           if (size.rows === 1) return ui.card({}, [ui.spacer(), ui.row([ui.icon("mouse-pointer-2", 16), ui.text("Cursor isn't on this Mac", "caption")], { spacing: 8 }), ui.spacer()]);
           return ui.card({ title: "Cursor", icon: "mouse-pointer-2" }, [
             ui.text("Not on this Mac", "body"),
             ui.text("Somewhere else? Point to it in Settings › Plugins.", "caption")
           ]);
         }
-        var t = totals();
+        var t = preview ? SAMPLE : totals();
+        var appOpen = preview ? false : running;
         if (size.rows === 1) {
           return ui.card({}, [
             ui.spacer(),
@@ -134,11 +139,11 @@ HyperIsland.register({
         }
         if (!t.prompts && !t.replies) {
           return ui.card({ title: "Cursor", icon: "mouse-pointer-2" }, [
-            ui.text(behind ? "Reading its history…" : "Nothing yet today", "body"),
-            ui.text(running ? "Cursor is open" : "", "caption")
+            ui.text(behind && !preview ? "Reading its history…" : "Nothing yet today", "body"),
+            ui.text(appOpen ? "Cursor is open" : "", "caption")
           ]);
         }
-        var last = t.added || t.removed ? "+" + t.added + " −" + t.removed + " lines" + (t.model ? " · " + t.model : "") : t.model || (running ? "Cursor is open" : "");
+        var last = t.added || t.removed ? "+" + t.added + " −" + t.removed + " lines" + (t.model ? " · " + t.model : "") : t.model || (appOpen ? "Cursor is open" : "");
         return ui.card({ title: "Cursor", icon: "mouse-pointer-2" }, [
           ui.row([ui.text(String(t.prompts), "title"), ui.text(t.prompts === 1 ? "prompt today" : "prompts today", "caption")], { spacing: 5 }),
           ui.text(plural(t.chats, "chat", "chats") + " · " + plural(t.replies, "reply", "replies"), "mono"),

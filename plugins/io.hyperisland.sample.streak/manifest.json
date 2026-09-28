@@ -2,7 +2,7 @@
   "$schema": "./manifest.schema.json",
   "id": "io.hyperisland.sample.streak",
   "name": "Hydration Streak",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Hyper Island"
   },

@@ -39,6 +39,10 @@ declare namespace HyperIsland {
     settings: Settings;
     /** Its reads: found or not. */
     reads: Reads;
+    /** True when it's drawn for its picture — the preview edit mode's picker shows, made by
+     *  `hi render --png` and published with it — not for a cell. Draw sample content then,
+     *  never what's on this Mac: everyone who opens the picker sees that picture. */
+    preview?: boolean;
   }
 
   /** A file one of its folder reads may read (local.list). */
@@ -56,6 +60,8 @@ declare namespace HyperIsland {
     text?: string;
     /** Whole lines — with lines, or contains. */
     lines?: string[];
+    /** With find: each place the text is (a byte offset), and what follows it on its line. */
+    found?: { at: number; text: string }[];
     /** Where to go on from: the byte after what was read (or looked through). */
     next: number;
     /** The file's size. */
@@ -175,9 +181,10 @@ declare const local: {
   /**
    * Part of a file, from `from` (bytes), at most `max` (1 MB). `lines`: whole lines only.
    * `contains`: only the lines with that text in them — the island looks through up to 16 MB
-   * for them, so a large log is cheap to follow. Carry on from `next`.
+   * for them, so a large log is cheap to follow. `find`: where that text is (the first
+   * `count`, up to 64) and the line's next 256 bytes — a timestamp without its line. Carry on from `next`.
    */
-  read(read: string, file: HyperIsland.LocalFile | string, options?: { from?: number; max?: number; lines?: boolean; contains?: string }): HyperIsland.LocalRead;
+  read(read: string, file: HyperIsland.LocalFile | string, options?: { from?: number; max?: number; lines?: boolean; contains?: string; find?: string; count?: number }): HyperIsland.LocalRead;
   /** One SELECT on a database read, opened read-only; only the tables its manifest names. ? for params. */
   query(read: string, sql: string, params?: (string | number | null)[]): Record<string, string | number | null>[];
   /** How many processes a process read's names are running as. */

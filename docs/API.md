@@ -82,6 +82,14 @@ function count() { return storage.get("count") || 0; }
 
 Drawing has no other effects. Live activities, schedules and rail lights happen in handlers.
 
+**Its picture:**
+- Edit mode's picker shows each widget as a still picture rather than running it: the plugin's
+  `previews/<widget>-<rows>x<columns>.png`, one for every size it lists.
+- `hi render <folder> --png` has the island draw them into that folder.
+- The island draws them with `ctx.preview` set to true. Show sample content then, never what's on
+  this Mac: the pictures are published with the plugin.
+- `hi check --publish` and `hi pack` want one for every size, drawn by the island (2× its points).
+
 **Handlers:**
 - **When they run:**
   - `actions`: a button, a rail button or a menu item.
@@ -215,11 +223,12 @@ over. `hi bench` measures a plugin before you ship it.
 
 - **`hi new`:** start a plugin.
 - **`hi dev`:** develop it live on the island.
-- **`hi check`:** the manifest, icons and script, with every widget drawn at every size.
+- **`hi check`:** the manifest, icons and script, with every widget drawn at every size and as its
+  picture. `--publish` also requires every picture in `previews/`, as CI does.
 - **`hi bench`:** what drawing it costs.
-- **`hi render`:** its trees, or images drawn by the island with `--png`.
+- **`hi render`:** its trees; with `--png`, its pictures drawn by the island into `previews/`.
 - **`hi sdk`:** add the typing files to a plugin.
-- **`hi pack`:** a zip and its SHA-256.
+- **`hi pack`:** a zip and its SHA-256, pictures included.
 - **`--read <id>=<path>`**, **`--then alarm:<name>*N`:** with check, bench and render, as above.
 
 If macOS won't open a downloaded `hi`, run `xattr -d com.apple.quarantine hi` once.

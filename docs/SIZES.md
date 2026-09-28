@@ -106,4 +106,4 @@ The height is **158 pt** for 2 rows and **71 pt** for 1 row. Widths:
 ## Checking your widget
 
 - **In the app:** in edit mode (the pencil in the island's top-right icons), each cell's span is shown on its outline. Put your widget in cells of each size you list; the Half height group splits a slot into two 1-row cells.
-- **Images:** `hi render <folder> --png` has the island draw it at every size it lists. Attach them to your pull request.
+- **Pictures:** `hi render <folder> --png` has the island draw it at every size it lists, into the plugin's `previews/`: the pictures edit mode's picker shows. `ctx.preview` is true while it draws them, so show sample content.

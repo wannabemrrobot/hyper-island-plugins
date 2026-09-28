@@ -45,8 +45,9 @@ HyperIsland.register({
   widgets: {
     streak: {
       // ctx.size: { rows, columns, label: "2×3", width, height, class } — see docs/PLUGIN_SIZES.md.
+      // ctx.preview: drawn for its picture in the picker — sample content, not today's count.
       render: function (ctx) {
-        var n = count(), g = goal(ctx);
+        var g = goal(ctx), n = ctx.preview ? Math.round(g * 0.6) : count();
         var size = ctx.size || { rows: 2, columns: 3 };
         if (size.rows === 1) {
           // Half height (1×3 and up): one line — the count, and the button — centred in the cell.

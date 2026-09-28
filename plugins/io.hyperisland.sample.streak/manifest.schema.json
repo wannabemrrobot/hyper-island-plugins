@@ -279,6 +279,80 @@
       "type" : "array",
       "uniqueItems" : true
     },
+    "reads" : {
+      "description" : "What it reads on this Mac: folders, SQLite databases, running processes. Read-only, local.",
+      "items" : {
+        "additionalProperties" : false,
+        "properties" : {
+          "files" : {
+            "description" : "Folder: the files it may read, as patterns under it (*/*.jsonl)",
+            "items" : {
+              "type" : "string"
+            },
+            "maxItems" : 8,
+            "minItems" : 1,
+            "type" : "array"
+          },
+          "id" : {
+            "pattern" : "^[a-z][A-Za-z0-9]{0,23}$",
+            "type" : "string"
+          },
+          "kind" : {
+            "enum" : [
+              "folder",
+              "sqlite",
+              "process"
+            ]
+          },
+          "names" : {
+            "description" : "Process: its names, exactly as Activity Monitor shows them",
+            "items" : {
+              "maxLength" : 32,
+              "minLength" : 1,
+              "type" : "string"
+            },
+            "maxItems" : 4,
+            "minItems" : 1,
+            "type" : "array"
+          },
+          "paths" : {
+            "description" : "Every place it may be on a Mac, most specific first",
+            "items" : {
+              "description" : "~/… or $NAME/… (an environment variable, as the person's shell has it)",
+              "pattern" : "^(~|\\$[A-Z_][A-Z0-9_]*)(/.*)?$",
+              "type" : "string"
+            },
+            "maxItems" : 8,
+            "minItems" : 1,
+            "type" : "array"
+          },
+          "tables" : {
+            "description" : "Database: the tables it may read, and no others",
+            "items" : {
+              "pattern" : "^[A-Za-z_][A-Za-z0-9_]*$",
+              "type" : "string"
+            },
+            "maxItems" : 16,
+            "minItems" : 1,
+            "type" : "array"
+          },
+          "title" : {
+            "description" : "What it is, for Settings: “Claude Code's transcripts”",
+            "maxLength" : 60,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "id",
+          "title",
+          "kind"
+        ],
+        "type" : "object"
+      },
+      "maxItems" : 8,
+      "type" : "array"
+    },
     "version" : {
       "pattern" : "^\\d+\\.\\d+\\.\\d+$",
       "type" : "string"
