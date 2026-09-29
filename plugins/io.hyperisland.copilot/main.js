@@ -87,7 +87,12 @@ function totals() {
 }
 
 /** @param {HyperIsland.Context} ctx @param {number} [budget] */
-function look(ctx, budget) { scan(budget || 60); ctx.refresh("usage"); }
+/** When it last looked: opening the island looks again only after 15 s, so hovering past the
+ *  notch over and over doesn't rescan the logs each time (the alarms keep it current while open). */
+var lastLook = 0;
+
+function look(ctx, budget) {
+  lastLook = Date.now(); scan(budget || 60); ctx.refresh("usage"); }
 
 /** @param {number} n @param {string} one @param {string} many */
 function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
@@ -99,7 +104,7 @@ HyperIsland.register({
   activate: function (ctx) { schedule.every("look", { minutes: 1 }); look(ctx, 150); },
   alarms: { look: function (ctx) { if (open || behind) look(ctx); } },
   events: {
-    islandOpen: function (ctx) { open = true; look(ctx); },
+    islandOpen: function (ctx) { open = true; if (Date.now() - lastLook > 15000) look(ctx); },
     islandClose: function () { open = false; }
   },
 

@@ -70,7 +70,12 @@ function fromFiles(since) {
 }
 
 /** @param {HyperIsland.Context} ctx */
+/** When it last looked: opening the island looks again only after 15 s, so hovering past the
+ *  notch over and over doesn't rescan the logs each time (the alarms keep it current while open). */
+var lastLook = 0;
+
 function look(ctx) {
+  lastLook = Date.now();
   var since = startOfToday(), reads = ctx.reads || {};
   try {
     if (reads.db && reads.db.found) today = fromDatabase(since);
@@ -92,7 +97,7 @@ HyperIsland.register({
   activate: function (ctx) { schedule.every("look", { minutes: 1 }); look(ctx); },
   alarms: { look: function (ctx) { if (open) look(ctx); } },
   events: {
-    islandOpen: function (ctx) { open = true; look(ctx); },
+    islandOpen: function (ctx) { open = true; if (Date.now() - lastLook > 15000) look(ctx); },
     islandClose: function () { open = false; }
   },
 
